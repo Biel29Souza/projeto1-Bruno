@@ -1,5 +1,6 @@
-import conexao from '../infra/conexao.js'
 import express from 'express'
+import CursoController from './app/controllers/CursoController.js'
+import conexao from './app/database/conexao.js'
 const app = express()
 
 //indicar para  o express ler o body como json
@@ -28,20 +29,30 @@ function buscarIndexCurso(id){
 // app.get('/',(req,res)=>{
 //     res.send('hello  felipe')
 // })
+
+
+
+
+
+
+
 // ROTA: LISTAR TODOS OS CURSOS (READ ALL)
 // ============================================================================
-app.get('/cursos', (req, res) => {
-  // SQL que busca todos os cursos
-  const sql = "SELECT * FROM cursos;"
-  conexao.query(sql, (error, results) => {
-    if (error) {
-      console.error('Erro ao consultar os cursos:', error)  // Loga erro no servidor
-      res.status(500).json({ erro: "Erro ao buscar cursos" }) // Retorna erro 500
-    } else {
-      res.status(200).json(results) // Retorna a lista de cursos
-    }
-  })
-})
+app.get('/cursos', CursoController.index) 
+
+//   // SQL que busca todos os cursos
+//   const sql = "SELECT * FROM cursos;"
+//   conexao.query(sql, (error, results) => {
+//     if (error) {
+//       console.error('Erro ao consultar os cursos:', error)  // Loga erro no servidor
+//       res.status(500).json({ erro: "Erro ao buscar cursos" }) // Retorna erro 500
+//     } else {
+//       res.status(200).json(results) // Retorna a lista de cursos
+//     }
+//   })
+// })
+
+
 
 // ============================================================================
 // ROTA: CRIAR UM NOVO CURSO (CREATE)
